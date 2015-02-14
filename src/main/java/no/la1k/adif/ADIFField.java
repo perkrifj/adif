@@ -44,13 +44,19 @@ public class ADIFField {
     private String type;
     private String value;
     
-    public ADIFField (String name, String type, String value) {
+	public ADIFField (String name, String type, String value) {
         this.recordName = name;
         this.type = type;
         this.value = value;
     }
 
-    public void write (Writer out) throws IOException {
+    @Override
+	public String toString() {
+		return "ADIFField [recordName=" + recordName + ", type=" + type
+				+ ", value=" + value + "]";
+	}
+
+	public void write (Writer out) throws IOException {
         final StringBuilder sb = new StringBuilder();
         final int length = value.length();
 

@@ -1,6 +1,8 @@
 package no.la1k.labeler;
 
-public class Label {
+import java.util.Comparator;
+
+public class Label implements Comparable<Label>{
 	
 	private String call;
 	private String qso_date;
@@ -158,9 +160,15 @@ public class Label {
 		public Label build(){
 			return new Label(this);
 		}
-		
 	}
 
-	
+//	@Override
+//	public int compare(Label o1, Label o2) {
+//		return o1.call.compareTo(o2.call);
+//	}
 
+	@Override
+	public int compareTo(Label o) {
+		return this.call.compareTo(o.call);
+	}
 }

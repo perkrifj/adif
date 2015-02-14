@@ -62,4 +62,9 @@ public class ADIFRecord {
         }
         out.write(END_OF_RECORD);
     }
+
+	@Override
+	public String toString() {
+		return "ADIFRecord [fields=" + fields + "]";
+	}
 }
