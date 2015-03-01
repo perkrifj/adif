@@ -9,7 +9,7 @@ import no.la1k.labeler.Label.LabelBuilder;
 public class LabelGenerator {
 
 	/**
-	 * Builds a list of Label from an ADIFRecord
+	 * Builds a list of Labels from an ADIFRecord
 	 * @param record
 	 * @return List of Label
 	 */

@@ -1,5 +1,8 @@
 package no.la1k.labeler;
 
+/**
+ * Holder-class for a Label
+ */
 public class Label implements Comparable<Label>{
 
 	private static final int ENTRIES_AFTER_FREQUENCY_DELIMITER = 3;
@@ -24,7 +27,7 @@ public class Label implements Comparable<Label>{
 	}
 	
 	/**
-	 * Replace 0 with Æ
+	 * Replace 0 with Ø
 	 * @return
 	 */
 	public String getCleanCall(){
@@ -65,8 +68,8 @@ public class Label implements Comparable<Label>{
 	
 	/**
 	 * Return frequency-info for a contact.
-	 * The frequecy-string is limited to 3 characters after the delimiter.
-	 * If the band-info is available, the band is included
+	 * The frequency-string is limited to 3 characters after the delimiter.
+	 * If band-info is available, the band is included
 	 * @return
 	 */
 	public String getFrequencyInfo(){

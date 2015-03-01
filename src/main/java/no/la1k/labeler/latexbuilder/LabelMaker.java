@@ -17,7 +17,7 @@ import no.la1k.util.FileUtil;
 
 public class LabelMaker {
 
-	private String buildConfpin(Label l) {
+	private static String buildConfpin(Label l) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\\confpin{");
 		sb.append(l.getCleanCall());
@@ -37,6 +37,11 @@ public class LabelMaker {
 		sb.append("\\textbf{");
 		sb.append(l.getRstSent());
 		sb.append("}}");
+		sb.append("{");
+		sb.append("\\raggedright ");
+		sb.append("\\scriptsize ");
+		sb.append(l.getContestId());
+		sb.append("}");
 		return sb.toString();
 	}
 
@@ -48,10 +53,6 @@ public class LabelMaker {
 		}
 		sb.append(LabelConfig.getEndDocument());
 		return sb.toString();
-	}
-
-	public String readFile(String path) throws IOException{
-		return new String(Files.readAllBytes(Paths.get(path)));
 	}
 
 	public static String pringUsage(){

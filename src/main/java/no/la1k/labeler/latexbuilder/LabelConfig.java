@@ -8,7 +8,7 @@ package no.la1k.labeler.latexbuilder;
 
 public final class LabelConfig {
 	
-	private static final String getLatexPackages(){
+	private static String getLatexPackages(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("\\documentclass[a4paper,10pt]{letter}\n");
 		sb.append("\\usepackage{fullpage}\n");
@@ -19,7 +19,7 @@ public final class LabelConfig {
 		return sb.toString();
 	}
 	
-	private static final String getFreepinConfig(){
+	private static String getFreepinConfig(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("\\unitlength=1mm\n");
 		sb.append("\\hoffset=-22mm\n");
@@ -30,29 +30,30 @@ public final class LabelConfig {
 		return sb.toString();
 	}
 	
-	private static final String getTicketDefault(){
+	private static String getTicketDefault(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("\\renewcommand{\\ticketdefault}{\n");
-		sb.append("\\put( 5, 13){\\line(1,0){60}}\n");
+		sb.append("\\put( 5, 14){\\line(1,0){60}}\n");
 		sb.append("}\n");
 		return sb.toString();
 	}
 	
-	private static final String getConfpin(){
+	private static String getConfpin(){
 		StringBuilder sb = new StringBuilder();
-		sb.append("\\newcommand{\\confpin}[3]{\\ticket{\n");
+		sb.append("\\newcommand{\\confpin}[4]{\\ticket{\n");
 		sb.append("\\put(35,29){\\makebox[0mm]{\\bfseries\\Large #1}}\n");
 		sb.append("\\put(35,22){\\makebox[0mm]{ #2}}\n");
 		sb.append("\\put(35,17){\\makebox[0mm]{ #3}}\n");
+		sb.append("\\put(35,10){\\makebox[0mm]{ #4}}\n");
 		sb.append("}}\n");
 		return sb.toString();
 	}
 	
-	public static final String getEndDocument(){
+	public static String getEndDocument(){
 		return "\\end{document}";
 	}
 	
-	public static String buildLatexHeader(){
+	public static final String buildLatexHeader(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(getLatexPackages());
 		sb.append("\\begin{document}\n");
