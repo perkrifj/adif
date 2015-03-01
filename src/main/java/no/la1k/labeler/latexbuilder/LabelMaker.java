@@ -1,14 +1,10 @@
 package no.la1k.labeler.latexbuilder;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,18 +20,14 @@ public class LabelMaker {
 	private String buildConfpin(Label l) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\\confpin{");
-		sb.append(l.getCall().replaceAll("0", "Ø"));
+		sb.append(l.getCleanCall());
 		sb.append("}");
 		sb.append("{");
-		sb.append(l.getQsoDate());
-		sb.append(" ");
-		sb.append(l.timeOn());
+		sb.append(l.getFormattedDate());
 		sb.append("} ");
 		sb.append("{");
-//		sb.append("Freq: ");
 		sb.append("\\textbf{");
-		sb.append(l.freq());
-//		sb.append(" MHz");
+		sb.append(l.getFrequencyInfo());
 		sb.append("} ");
 		sb.append("Mode: ");
 		sb.append("\\textbf{");
@@ -62,8 +54,6 @@ public class LabelMaker {
 		return new String(Files.readAllBytes(Paths.get(path)));
 	}
 
-
-
 	public static String pringUsage(){
 		StringBuilder sb = new StringBuilder();
 
@@ -75,7 +65,6 @@ public class LabelMaker {
 
 		return sb.toString();
 	}
-
 
 	public static void main(String[] args) {
 

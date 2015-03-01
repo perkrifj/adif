@@ -21,6 +21,7 @@ public class LabelGenerator {
 			lb.qsoDate(r.getField(LabelFields.QSO_DATE.toString()).getValue());
 			lb.timeOn(r.getField(LabelFields.TIME_ON.toString()).getValue());
 			lb.freq(r.getField(LabelFields.FREQ.toString()).getValue());
+			lb.band(r.getField(LabelFields.BAND.toString()).getValue());
 			lb.freqRx(r.getField(LabelFields.FREQ_RX.toString()).getValue());
 			lb.mode(r.getField(LabelFields.MODE.toString()).getValue());
 			lb.rstSnt(r.getField(LabelFields.RST_SENT.toString()).getValue());
