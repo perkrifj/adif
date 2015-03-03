@@ -17,7 +17,7 @@ Command-line arguments:
 
 -o, path to the output .tex file (required)
 
---no-contestname, avoid printing the contest-name at the bottom of the label. Usefull if you've used contest-template in N1MM and do not want to print the wrong contestname.
+--no-contestname, avoid printing the contest-name at the bottom of the label. Usefull if you've used a contest-template for another contest and do not want to print the wrong contestname.
 
 Statistics
 ====
