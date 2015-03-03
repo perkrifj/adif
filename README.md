@@ -14,7 +14,9 @@ java -jar filename.jar -i inputefile.ADI outputfile.tex
 Command-line arguments:
 
 -i, path to the input ADIF file (required)
+
 -o, path to the output .tex file (required)
+
 --no-contestname, avoid printing the contest-name at the bottom of the label. Usefull if you've used contest-template in N1MM and do not want to print the wrong contestname.
 
 Statistics
