@@ -13,9 +13,9 @@ public class StringUtil {
 	}
 	
 	/**
-	 * Checks if the String s is null og empty
+	 * Checks if the String s is null or empty
 	 * @param s String to test
-	 * @return true if null and empty. False otherwise.
+	 * @return true if null or empty. False otherwise.
 	 */
 	public static boolean isNullOrEmpty(String s) {
 		if(s == null || s.isEmpty()) {
