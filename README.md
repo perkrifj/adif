@@ -1,6 +1,6 @@
 adif-tools
 ====
-Tools for doing work on ADIF-files - primarily in the contest of ham-radio logs
+Tools for doing work on ADIF-files - primarily in the context of ham-radio logs.
 
 latex-labeler
 ====
