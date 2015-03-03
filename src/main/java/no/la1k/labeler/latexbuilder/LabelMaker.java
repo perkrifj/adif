@@ -2,8 +2,6 @@ package no.la1k.labeler.latexbuilder;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +15,26 @@ import no.la1k.util.FileUtil;
 
 public class LabelMaker {
 
-	private static String buildConfpin(Label l) {
+	private String inputFile;
+	private String outpufFile;
+	/**
+	 * Allowing user to skip the printing of contestname at the bottom of the label
+	 * This is done so that we can turn of the printing of a contest if the user has used
+	 * a template for another contest than the one you actually operated
+	 */
+	private boolean skipContestName = false;
+
+	public boolean isSkipContestName(){
+		return skipContestName;
+	}
+
+	public LabelMaker(String inputFile, String outputFile, boolean skipContestName) {
+		this.inputFile = inputFile;
+		this.outpufFile = outputFile;
+		this.skipContestName = skipContestName;
+	}
+
+	private String buildConfpin(Label l) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\\confpin{");
 		sb.append(l.getCleanCall());
@@ -38,14 +55,12 @@ public class LabelMaker {
 		sb.append(l.getRstSent());
 		sb.append("}}");
 		sb.append("{");
-		sb.append("\\raggedright ");
-		sb.append("\\scriptsize ");
-		sb.append(l.getContestId());
+		sb.append(isSkipContestName() ? "" : "\\scriptsize " +  l.getContestId());
 		sb.append("}");
 		return sb.toString();
 	}
 
-	public String buildLatexDocument(List<Label> labels) {
+	private String buildLatexDocument(List<Label> labels) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(LabelConfig.buildLatexHeader());
 		for (Label l: labels) {
@@ -55,32 +70,13 @@ public class LabelMaker {
 		return sb.toString();
 	}
 
-	public static String pringUsage(){
-		StringBuilder sb = new StringBuilder();
+	public void makeLabels() {
+		LabelGenerator generator = new LabelGenerator();
 
-		sb.append("1st argument: input file\n");
-		sb.append("2nd argument: output file\n");
-
-		sb.append("Example usage: \n");
-		sb.append("java -jar <filename>.jar /tmp/input /tmp/output");
-
-		return sb.toString();
-	}
-
-	public static void main(String[] args) {
-
-		if(args.length != 2) {
-			System.out.println("Please supply 2 arguments \n");
-			System.out.println(LabelMaker.pringUsage());
-			System.exit(1);
-		}
-
-		LabelGenerator g = new LabelGenerator();
-		LabelMaker m = new LabelMaker();
-		List<ADIFRecord> records = null;
+		List<ADIFRecord> extractedRecords = null;
 		try {
-			ADIFReader adi = new ADIFReader(args[0]);
-			records = new ArrayList<ADIFRecord>();
+			ADIFReader adi = new ADIFReader(inputFile);
+			extractedRecords = new ArrayList<ADIFRecord>();
 			ADIFRecord adif = null;
 			/*
 			 * If we get the same record again, break the loop
@@ -100,26 +96,25 @@ public class LabelMaker {
 					breaker = adif;
 				}
 				if(adif != null) {
-					records.add(adif);
+					extractedRecords.add(adif);
 					continue;
 				}
 			}
 		} catch (FileNotFoundException e) {
-			System.err.println("File not found. " + args[0]);
+			System.err.println("File not found. " + inputFile);
 			System.exit(1);
 		} catch (IOException e) {
 			System.err.println("File I/O failed");
 			System.exit(1);
 		}
 		try {
-			List<Label> labels = g.createLabels(records);
+			List<Label> labels = generator.createLabels(extractedRecords);
 			Collections.sort(labels);
-			FileUtil.writeFile(args[1], m.buildLatexDocument(labels));
+			FileUtil.writeFile(outpufFile, buildLatexDocument(labels));
 		}
 		catch(IOException e) {
-			System.err.println("Failed to write output file: " + args[1]);
+			System.err.println("Failed to write output file: " + outpufFile);
 			System.exit(1);
 		}
-
 	}
 }
