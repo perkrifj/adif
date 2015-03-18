@@ -5,7 +5,7 @@ package no.la1k.labeler;
  */
 public class Label implements Comparable<Label>{
 
-	private static final int ENTRIES_AFTER_FREQUENCY_DELIMITER = 3;
+	private static final int ENTRIES_AFTER_FREQUENCY_DELIMITER = 5;
 	private static final String FREQUENCY_DELIMITER = ".";
 
 	private String call;
@@ -68,7 +68,7 @@ public class Label implements Comparable<Label>{
 	
 	/**
 	 * Return frequency-info for a contact.
-	 * The frequency-string is limited to 3 characters after the delimiter.
+	 * The frequency-string is limited to ENTRIES_AFTER_FREQUENCY_DELIMITER characters after the delimiter.
 	 * If band-info is available, the band is included
 	 * @return
 	 */
@@ -77,7 +77,7 @@ public class Label implements Comparable<Label>{
 		int shortenedLength = freq.length() - dot;
 		if(dot != -1) {
 			if(shortenedLength -1 >= ENTRIES_AFTER_FREQUENCY_DELIMITER)  {
-				return (freq.substring(0, dot+4) + getBandForFrequencyString());
+				return (freq.substring(0, dot+1+ENTRIES_AFTER_FREQUENCY_DELIMITER) + getBandForFrequencyString());
 			}
 		}
 		return freq + getBandForFrequencyString();

@@ -1,6 +1,9 @@
 package no.la1k.labeler.latexbuilder;
 
+import no.la1k.labeler.statistics.Statistics;
+import no.la1k.labeler.statistics.Statistics.StatisticsBuilder;
 import no.la1k.util.StringUtil;
+
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
@@ -26,6 +29,9 @@ public class Runner {
 			}
 			LabelMaker m = new LabelMaker(runner.inputFileString, runner.outputFileString, runner.disablePrintingOfContestName);
 			m.makeLabels();
+			StatisticsBuilder sb = new StatisticsBuilder(m.getLabels());
+			Statistics statistics = sb.totalCallsStatistics().build();
+			System.out.println(statistics.print());
 		}
 		catch(CmdLineException e) {
 			System.err.println(e.getMessage());

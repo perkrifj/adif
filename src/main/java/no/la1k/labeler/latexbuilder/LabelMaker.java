@@ -15,7 +15,8 @@ import no.la1k.util.FileUtil;
 
 public class LabelMaker {
 
-	private String inputFile;
+	private List<Label> labels = null;
+ 	private String inputFile;
 	private String outpufFile;
 	/**
 	 * Allowing user to skip the printing of contestname at the bottom of the label
@@ -23,6 +24,14 @@ public class LabelMaker {
 	 * a template for another contest than the one you actually operated
 	 */
 	private boolean skipContestName = false;
+	
+	/**
+	 * Returns an unmodifiable list of labels
+	 * @return unmodifiable view of the underlying label-list
+	 */
+	public List<Label> getLabels(){
+		return Collections.unmodifiableList(labels);
+	}
 
 	public boolean isSkipContestName(){
 		return skipContestName;
@@ -108,7 +117,7 @@ public class LabelMaker {
 			System.exit(1);
 		}
 		try {
-			List<Label> labels = generator.createLabels(extractedRecords);
+			labels = generator.createLabels(extractedRecords);
 			Collections.sort(labels);
 			FileUtil.writeFile(outpufFile, buildLatexDocument(labels));
 		}
